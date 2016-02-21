@@ -1,0 +1,3 @@
+"Resource: /home/mike/dev/typan/src/typan.ml": "\127\r\221q.\020\002\245Yq\207G\218Q\151\154"
+"Rule: ocaml: ml -> cmo & cmi (%=src/typan )": "\253z\147\205\168\176\024\201\b\136L\184\020<\240\216"
+"Rule: ocaml dependencies ml (%=src/typan )": "\159\179\190\166Y\250Y\179\145\200n\220\234(R\136"
