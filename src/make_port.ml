@@ -15,4 +15,3 @@ module Make_Port (P : PortSig) = struct
     let p = get_base_price good in
     (p / 2) * (rand) * (multiplier_for good)
 end
-

@@ -1,5 +1,4 @@
-
 module type PortSig = sig
-  val get_multiplier : Good.t -> Market.t
+  val get_base_price : Goods.t -> int
   val name : string
 end

@@ -40,7 +40,7 @@ DOCFILE=typan
 SRCDIR=src
 TESTDIR=test
 DOCDIR=docs
-BUILDDIR=build
+BUILDDIR=_build #ocamlbuild default is `_build`
 
 # Path separator for the current platform.
 # Uncomment the next line for Windows platforms.
@@ -54,13 +54,13 @@ SYMLINKS=$(PROGRAM) $(PROGRAM).byte $(DOCDIR)
 all: docs byte native
 docs:
 	$(BUILDER) $(SRCDIR)$/$(DOCFILE).docdir/index.html -I $(SRCDIR) -build-dir $(BUILDDIR)
-	ln -sf $(BUILDDIR)$/$(SRCDIR)$/$(PROGRAM).docdir $(DOCDIR)
+#	ln -sf $(BUILDDIR)$/$(SRCDIR)$/$(PROGRAM).docdir $(DOCDIR)
 byte:
 	$(BUILDER).byte $(SRCDIR)$/$(PROGRAM).byte -libs $(LIBS) -build-dir $(BUILDDIR)
-	ln -sf $(BUILDDIR)$/$(SRCDIR)$/$(PROGRAM).byte $(PROGRAM).byte 
+#	ln -sf $(BUILDDIR)$/$(SRCDIR)$/$(PROGRAM).byte $(PROGRAM).byte 
 native:
 	$(BUILDER).native $(SRCDIR)$/$(PROGRAM).native -libs $(LIBS) -build-dir $(BUILDDIR)
-	ln -sf $(BUILDDIR)$/$(SRCDIR)$/$(PROGRAM).native $(PROGRAM) 
+#	ln -sf $(BUILDDIR)$/$(SRCDIR)$/$(PROGRAM).native $(PROGRAM) 
 test.byte:
 	$(BUILDER).byte -Is $(SRCDIR),$(TESTDIR) tests.byte -lflags -I,/home/mike/.opam/system/lib/ounit -cflags -I,/home/mike/.opam/system/lib/ounit libs oUnit
 clean: 
