@@ -1,4 +1,6 @@
+open Goods
+
 
 let main () = 
-  print_endline "Imagine your ad here!"
+  print_string (Goods.string_of_t Goods.Opium)
 ;;
