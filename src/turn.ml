@@ -1,21 +1,18 @@
-type cog = Cash | Guns
+open Ports
+open Date
 
-type month = January | February | March | April | May | June
-           | July | August | September | October | November | December
+type cog = Cash | Guns
 
 type state = { 
   firm : string;
   cash : int;
   debt : int;
   guns : int;
-  year : int;
-  location : Port;
+  date : Date.t;
+  location : Ports.t;
   vulnerability : int;
   extortion : bool
 }
-
-
-
 
 exception Invalid of string
 
@@ -51,6 +48,8 @@ let init firm cash_or_guns =
       cash = init_cash start_cog;
       debt = init_debt start_cog;
       guns = init_guns start_cog;
+      date = { year = 1860; month = January };
+      location = Ports.hong_kong;
       vulnerability = init_vulnerability start_cog;
       extortion = init_extortion start_cog;
     }
