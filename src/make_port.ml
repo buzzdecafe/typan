@@ -1,4 +1,4 @@
-module Make_Port (P : PortSig) = struct
+module Make_Port (P : PortSig) : Port = struct
   let rand () = (Random.int 3) + 1
 
   let multiplier_for = function

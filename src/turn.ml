@@ -1,13 +1,21 @@
 type cog = Cash | Guns
 
+type month = January | February | March | April | May | June
+           | July | August | September | October | November | December
+
 type state = { 
   firm : string;
   cash : int;
   debt : int;
   guns : int;
+  year : int;
+  location : Port;
   vulnerability : int;
   extortion : bool
 }
+
+
+
 
 exception Invalid of string
 
@@ -46,3 +54,13 @@ let init firm cash_or_guns =
       vulnerability = init_vulnerability start_cog;
       extortion = init_extortion start_cog;
     }
+
+let add_gun s = { s with guns = s.guns + 1 }
+
+let add_cash m s = { s with cash = cash + m }
+
+let subtract_cash m s = add_cash (-m) s
+
+let inc_year s = { s with year = s.eyar + 1 }
+
+
