@@ -1,5 +1,6 @@
 (* ports module *)
 open Goods
+open Random
 
 type t = {
   name : string;
@@ -14,65 +15,69 @@ let at_sea = {
 let batavia = {
   name = "Batavia";
   get_base_price = function
-    | Goods.Opium   -> 13
-    | Goods.Silk    -> 12
-    | Goods.Arms    -> 15
+    | Goods.Opium   -> 6500
+    | Goods.Silk    -> 600
+    | Goods.Arms    -> 75
     | Goods.General -> 16
 }
 
 let hong_kong = {
   name = "Hong Kong";
   get_base_price = function
-    | Goods.Opium   -> 11
-    | Goods.Silk    -> 11
-    | Goods.Arms    -> 12
+    | Goods.Opium   -> 5500
+    | Goods.Silk    -> 550
+    | Goods.Arms    -> 60
     | Goods.General -> 10
 }
 
 let manila = {
   name = "Manila";
   get_base_price = function
-    | Goods.Opium   -> 12
-    | Goods.Silk    -> 10
-    | Goods.Arms    -> 13
+    | Goods.Opium   -> 6000
+    | Goods.Silk    -> 500
+    | Goods.Arms    -> 65
     | Goods.General -> 14
 }
 
 let nagasaki = {
   name = "Nagasaki";
   get_base_price = function
-    | Goods.Opium   -> 15
-    | Goods.Silk    -> 15
-    | Goods.Arms    -> 10
+    | Goods.Opium   -> 7500
+    | Goods.Silk    -> 750
+    | Goods.Arms    -> 50
     | Goods.General -> 12
 }
 
 let saigon = {
   name = "Saigon";
   get_base_price = function
-    | Goods.Opium   -> 14
-    | Goods.Silk    -> 16
-    | Goods.Arms    -> 11
+    | Goods.Opium   -> 7000
+    | Goods.Silk    -> 800
+    | Goods.Arms    -> 55
     | Goods.General -> 13
 }
 
 let shanghai = {
   name = "Shanghai";
   get_base_price = function
-    | Goods.Opium   -> 16
-    | Goods.Silk    -> 14
-    | Goods.Arms    -> 16
+    | Goods.Opium   -> 8000
+    | Goods.Silk    -> 700
+    | Goods.Arms    -> 80
     | Goods.General -> 11
 }
 
 let singapore = {
   name = "Singapore";
   get_base_price = function
-    | Goods.Opium   -> 10
-    | Goods.Silk    -> 13
-    | Goods.Arms    -> 14
+    | Goods.Opium   -> 5000
+    | Goods.Silk    -> 650
+    | Goods.Arms    -> 70
     | Goods.General -> 15
 }
+
+let get_price good p = 
+  let rand = (Random.int 3) + 1 in
+  (p.get_base_price good) * rand
 
 let all = [
   at_sea;

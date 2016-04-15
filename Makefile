@@ -59,7 +59,7 @@ byte:
 	$(BUILDER).byte $(SRCDIR)$/$(PROGRAM).byte -libs $(LIBS) -build-dir $(BUILDDIR)
 #	ln -sf $(BUILDDIR)$/$(SRCDIR)$/$(PROGRAM).byte $(PROGRAM).byte 
 native:
-	$(BUILDER).native $(SRCDIR)$/$(PROGRAM).native -libs $(LIBS) -build-dir $(BUILDDIR)
+	$(BUILDER).native $(SRCDIR)$/$(PROGRAM).native 
 #	ln -sf $(BUILDDIR)$/$(SRCDIR)$/$(PROGRAM).native $(PROGRAM) 
 test.byte:
 	$(BUILDER).byte -Is $(SRCDIR),$(TESTDIR) tests.byte -lflags -I,/home/mike/.opam/system/lib/ounit -cflags -I,/home/mike/.opam/system/lib/ounit libs oUnit

@@ -22,7 +22,7 @@ let next = function
 
 
 let inc {month = mo; year = yr} = 
-  match m with
+  match mo with
   | December -> { month = (next mo); year = yr + 1 }
   | _        -> { month = (next mo); year = yr }
 

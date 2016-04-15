@@ -1,13 +1,13 @@
-open Ports
 open Date
+open Money
+open Ports
 
 type cog = Cash | Guns
 
 type state = { 
   firm : string;
-  cash : int;
-  debt : int;
   guns : int;
+  money : Money.t;
   date : Date.t;
   location : Ports.t;
   vulnerability : int;
@@ -45,21 +45,19 @@ let init firm cash_or_guns =
   in let start_cog = to_cog cash_or_guns in
     { 
       firm = firm;
-      cash = init_cash start_cog;
-      debt = init_debt start_cog;
+      money = {
+        cash = init_cash start_cog;
+        debt = init_debt start_cog
+      };
       guns = init_guns start_cog;
-      date = { year = 1860; month = January };
+      date = { 
+        year = 1860; 
+        month = January 
+      };
       location = Ports.hong_kong;
       vulnerability = init_vulnerability start_cog;
       extortion = init_extortion start_cog;
     }
 
 let add_gun s = { s with guns = s.guns + 1 }
-
-let add_cash m s = { s with cash = cash + m }
-
-let subtract_cash m s = add_cash (-m) s
-
-let inc_year s = { s with year = s.eyar + 1 }
-
 
