@@ -3,3 +3,6 @@
 _build/*
 build/*
 opt/*
+*.native
+*.byte
+bin/

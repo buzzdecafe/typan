@@ -45,11 +45,11 @@ let init firm cash_or_guns =
   in let start_cog = to_cog cash_or_guns in
     { 
       firm = firm;
+      guns = init_guns start_cog;
       money = {
         cash = init_cash start_cog;
         debt = init_debt start_cog
       };
-      guns = init_guns start_cog;
       date = { 
         year = 1860; 
         month = January 
