@@ -18,3 +18,6 @@ let subtract_cash amt m =
   if balance < 0 then raise Out_of_funds
   else { m with cash = balance }
 
+let string_of_t m = 
+  "Cash: " ^ (string_of_int m.cash) ^ " " ^
+  "Debt: " ^ (string_of_int m.debt)

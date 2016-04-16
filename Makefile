@@ -52,18 +52,26 @@ BUILDDIR=_build
 # Symbolic links created by this Makefile (DO NOT EDIT).
 SYMLINKS=bin/$(PROGRAM) bin/$(PROGRAM).byte $(DOCDIR)
 
+.PHONY: all
 all: docs byte native
+
+.PHONY: docs
 docs:
 	$(BUILDER) $(SRCDIR)$/$(DOCFILE).docdir/index.html -I $(SRCDIR) -build-dir $(BUILDDIR)
 	ln -sf $(BUILDDIR)$/$(SRCDIR)$/$(PROGRAM).docdir $(DOCDIR)
+
 byte:
 	$(BUILDER).byte $(SRCDIR)$/$(PROGRAM).byte -libs $(LIBS) -build-dir $(BUILDDIR)
-	ln -sf -t bin ../$(BUILDDIR)/$(SRCDIR)/$(PROGRAM).byte $(PROGRAM).byte 
+	cd bin; ln -sf ../$(BUILDDIR)/$(SRCDIR)/$(PROGRAM).byte $(PROGRAM).byte 
+
 native:
 	$(BUILDER).native $(SRCDIR)$/$(PROGRAM).native -libs $(LIBS) -build-dir $(BUILDDIR)
 	cd bin;	ln -sf ../$(BUILDDIR)$/$(SRCDIR)$/$(PROGRAM).native $(PROGRAM)
+
 test.byte:
 	$(BUILDER).byte -Is $(SRCDIR),$(TESTDIR) tests.byte -lflags -I,/home/mike/.opam/system/lib/ounit -cflags -I,/home/mike/.opam/system/lib/ounit libs oUnit
+
+.PHONY: clean
 clean: 
 	$(BUILDER) -clean -build-dir $(BUILDDIR)
 	rm -f $(SYMLINKS)

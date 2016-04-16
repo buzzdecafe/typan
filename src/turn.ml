@@ -4,7 +4,7 @@ open Ports
 
 type cog = Cash | Guns
 
-type state = { 
+type t = { 
   firm : string;
   guns : int;
   money : Money.t;
@@ -13,6 +13,13 @@ type state = {
   vulnerability : int;
   extortion : bool
 }
+
+let string_of_t turn = 
+  "Firm name: " ^ turn.firm ^ " " ^
+  "Money: " ^ (Money.string_of_t turn.money) ^ " " ^
+  "Guns: " ^ (string_of_int turn.guns) ^ " " ^
+  "Date: " ^ (Date.string_of_t turn.date) ^ " " ^
+  "Location: " ^ turn.location.name
 
 exception Invalid of string
 
