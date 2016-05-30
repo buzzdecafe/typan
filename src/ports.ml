@@ -1,19 +1,23 @@
 (* ports module *)
 open Goods
 open Random
+open Warehouse
 
 type t = {
-  name : string;
+  name           : string;
+  warehouse      : Warehouse.t option;
   get_base_price : Goods.t -> int
 }
 
 let at_sea = { 
   name = "At sea";
+  warehouse = None;
   get_base_price = function _ -> 0
 }
 
 let batavia = {
   name = "Batavia";
+  warehouse = None;
   get_base_price = function
     | Goods.Opium   -> 6500
     | Goods.Silk    -> 600
@@ -23,6 +27,7 @@ let batavia = {
 
 let hong_kong = {
   name = "Hong Kong";
+  warehouse = Some Warehouse.empty;
   get_base_price = function
     | Goods.Opium   -> 5500
     | Goods.Silk    -> 550
@@ -32,6 +37,7 @@ let hong_kong = {
 
 let manila = {
   name = "Manila";
+  warehouse = None;
   get_base_price = function
     | Goods.Opium   -> 6000
     | Goods.Silk    -> 500
@@ -41,6 +47,7 @@ let manila = {
 
 let nagasaki = {
   name = "Nagasaki";
+  warehouse = None;
   get_base_price = function
     | Goods.Opium   -> 7500
     | Goods.Silk    -> 750
@@ -50,6 +57,7 @@ let nagasaki = {
 
 let saigon = {
   name = "Saigon";
+  warehouse = None;
   get_base_price = function
     | Goods.Opium   -> 7000
     | Goods.Silk    -> 800
@@ -59,6 +67,7 @@ let saigon = {
 
 let shanghai = {
   name = "Shanghai";
+  warehouse = None;
   get_base_price = function
     | Goods.Opium   -> 8000
     | Goods.Silk    -> 700
@@ -68,6 +77,7 @@ let shanghai = {
 
 let singapore = {
   name = "Singapore";
+  warehouse = None;
   get_base_price = function
     | Goods.Opium   -> 5000
     | Goods.Silk    -> 650
@@ -79,6 +89,11 @@ let get_price good p =
   let rand = (Random.int 3) + 1 in
   (p.get_base_price good) * rand
 
+let string_of_t p = 
+  match p.warehouse with
+  | Some w -> p.name ^ " (" ^ (Warehouse.string_of_t w) ^ ")"
+  | None   -> p.name
+
 let all = [
   at_sea;
   batavia;
@@ -89,4 +104,3 @@ let all = [
   shanghai;
   singapore
 ]
-

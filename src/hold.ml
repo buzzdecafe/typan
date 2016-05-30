@@ -59,3 +59,11 @@ let updateSilk = update Silk
 let updateArms = update Arms
 let updateGeneral = update General
 
+let get_usage h = h.opium + h.silk + h.arms + h.general
+
+let string_of_t h = 
+  "Opium: " ^ (string_of_int (getOpium h))  ^
+  "; Silk: " ^ (string_of_int (getSilk h))  ^
+  "; Arms: " ^ (string_of_int (getArms h))  ^
+  "; General: " ^ (string_of_int (getGeneral h))
+          

@@ -1,25 +1,26 @@
 open Date
 open Money
 open Ports
+open Ship
 
 type cog = Cash | Guns
 
 type t = { 
   firm : string;
-  guns : int;
   money : Money.t;
   date : Date.t;
   location : Ports.t;
+  ship: Ship.t;
   vulnerability : int;
   extortion : bool
 }
 
 let string_of_t turn = 
-  "Firm name: " ^ turn.firm ^ " " ^
-  "Money: " ^ (Money.string_of_t turn.money) ^ " " ^
-  "Guns: " ^ (string_of_int turn.guns) ^ " " ^
-  "Date: " ^ (Date.string_of_t turn.date) ^ " " ^
-  "Location: " ^ turn.location.name
+  "Firm name: " ^ turn.firm ^ "\n" ^
+  "Money: (" ^ (Money.string_of_t turn.money) ^ ")\n" ^
+  "Ship: (" ^ (Ship.string_of_t turn.ship) ^ ")\n" ^
+  "Date: (" ^ (Date.string_of_t turn.date) ^ ")\n" ^
+  "Location: " ^ (Ports.string_of_t turn.location) ^ "\n"
 
 exception Invalid of string
 
@@ -29,6 +30,10 @@ let init firm cash_or_guns =
     | "2" -> Guns
     | x   -> raise (Invalid (x ^ " is not a valid input"))
   
+  and init_guns = function
+    | Cash -> 0
+    | Guns -> 5
+
   and init_cash = function
     | Cash -> 400
     | Guns -> 0
@@ -36,10 +41,6 @@ let init firm cash_or_guns =
   and init_debt = function
     | Cash -> 5000
     | Guns -> 0
-
-  and init_guns = function
-    | Cash -> 0
-    | Guns -> 5
 
   and init_vulnerability = function
     | Cash -> 10
@@ -49,22 +50,14 @@ let init firm cash_or_guns =
     | Cash -> false
     | Guns -> true
 
-  in let start_cog = to_cog cash_or_guns in
+  in let cog = to_cog cash_or_guns in
     { 
       firm = firm;
-      guns = init_guns start_cog;
-      money = {
-        cash = init_cash start_cog;
-        debt = init_debt start_cog
-      };
-      date = { 
-        year = 1860; 
-        month = January 
-      };
+      ship = Ship.init (init_guns cog);
+      money = Money.init (init_cash cog) (init_debt cog);
+      date = { year = 1860; month = January };
       location = Ports.hong_kong;
-      vulnerability = init_vulnerability start_cog;
-      extortion = init_extortion start_cog;
+      vulnerability = init_vulnerability cog;
+      extortion = init_extortion cog;
     }
-
-let add_gun s = { s with guns = s.guns + 1 }
 
