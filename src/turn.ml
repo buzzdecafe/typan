@@ -15,13 +15,29 @@ type t = {
   extortion : bool
 }
 
-let string_of_t turn = 
-  "Firm name: " ^ turn.firm ^ "\n" ^
-  "Money: (" ^ (Money.string_of_t turn.money) ^ ")\n" ^
-  "Ship: (" ^ (Ship.string_of_t turn.ship) ^ ")\n" ^
-  "Date: (" ^ (Date.string_of_t turn.date) ^ ")\n" ^
-  "Location: " ^ (Ports.string_of_t turn.location) ^ "\n"
+(* turn lifecycle *)
+(*
 
+if hong_kong then moneylender Y|N
+Y ->
+N -> compradors_report
+     option Li Yuen message?
+
+     Buy, Sell, Bank, Transfer cargo, Quit trading?
+     Buy ->
+       Buy what? Goods.t -> How much? int -> 
+     Sell ->
+       Sell what? Goods.t -> How much? int -> 
+     Bank (if hong_kong) -> Deposit? int -> Withdraw? int -> 
+     Transfer (if hong_kong) -> None | Move to wh? Goods.t -> How much? int -> Move to ship? Goods.t -> How much? int -> Buy, Sell, etc.
+     Quit -> Where do you wish to go?
+       select port city
+       At sea/Captain's report
+       compradors_report
+ *)
+
+
+(* initialization *)
 exception Invalid of string
 
 let init firm cash_or_guns = 
@@ -60,4 +76,11 @@ let init firm cash_or_guns =
       vulnerability = init_vulnerability cog;
       extortion = init_extortion cog;
     }
+
+let string_of_t turn = 
+  "Firm name: " ^ turn.firm ^ "\n" ^
+  "Money: (" ^ (Money.string_of_t turn.money) ^ ")\n" ^
+  "Ship: (" ^ (Ship.string_of_t turn.ship) ^ ")\n" ^
+  "Date: (" ^ (Date.string_of_t turn.date) ^ ")\n" ^
+  "Location: " ^ (Ports.string_of_t turn.location) ^ "\n"
 
