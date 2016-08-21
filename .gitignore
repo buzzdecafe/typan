@@ -6,3 +6,7 @@ opt/*
 *.native
 *.byte
 bin/
+*.docdir
+
+setup.data
+setup.log

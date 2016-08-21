@@ -1,7 +1,4 @@
 open Date
-open Money
-open Ports
-open Ship
 
 type cog = Cash | Guns
 
@@ -48,7 +45,7 @@ let init firm cash_or_guns =
     { 
       firm = firm;
       ship = Ship.init (init_guns cog);
-      money = Money.init (init_cash cog) (init_debt cog);
+      money = Money.init (init_cash cog) (init_debt cog) 0;
       date = { year = 1860; month = January };
       location = Ports.hong_kong;
       vulnerability = init_vulnerability cog;

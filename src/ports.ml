@@ -1,7 +1,4 @@
 (* ports module *)
-open Goods
-open Random
-open Warehouse
 
 type t = {
   name           : string;

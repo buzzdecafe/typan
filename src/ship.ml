@@ -1,5 +1,4 @@
 (* ship module *)
-open Hold
 
 type t = {
   status   : int;

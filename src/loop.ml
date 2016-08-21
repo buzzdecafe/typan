@@ -40,9 +40,32 @@ type t = {
 
 type loop = (Turn.t -> Turn.t) list
 
-let time_of_date dt = ((dt.year - 1860) * 12) + dt.month
+exception Invalid_response Turn.t
 
-let extortion turn = turn (* HK: is li yuen extoring you? *)
+let get_resp turn = 
+  turn
+
+let rec handle_response turn = 
+  try 
+    match get_resp () with
+    | 'Y' -> { turn with extortion = true } 
+    | 'N' -> turn
+    | _   -> raise (Invalid_response turn)
+  with 
+    Invalid_response t -> handle_response t
+
+
+let get_time dt = ((dt.year - 1860) * 12) + dt.month
+
+let extortion turn = (* HK: is li yuen extoring you? *)
+  let extort t = 
+    t.location = Ports.hong_kong && 
+    t.money.cash > 0 &&
+    t.extortion 
+  in    
+  if extort turn 
+  then handle_response turn
+  else turn
 
 let fix_ship turn = turn (* HK: McHenry offers to fix your ship *)
 
@@ -70,7 +93,7 @@ let sail_to turn = turn (* choose next city to sail to *)
 
 let at_sea turn = turn
 
-let hk_loop =  [
+let hk_loop : loop =  [
   extortion; 
   fix_ship; 
   wu_warn; 
@@ -83,7 +106,7 @@ let hk_loop =  [
   at_sea
 ]
 
-let other_loop = [
+let other_loop : loop = [
   new_ship_or_gun;
   opium_bust;
   warehouse_robbed; 

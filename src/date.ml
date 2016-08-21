@@ -1,5 +1,16 @@
-type month  = January | February | March | April | May | June
-            | July | August | September | October | November | December
+type month  = 
+  | January 
+  | February 
+  | March 
+  | April 
+  | May 
+  | June
+  | July 
+  | August 
+  | September 
+  | October 
+  | November 
+  | December
 
 type t = {
   year : int;
@@ -22,9 +33,20 @@ let next = function
 
 
 let inc {month = mo; year = yr} = 
+  let inc_y y = { month = (next mo); year = yr + y} in
   match mo with
-  | December -> { month = (next mo); year = yr + 1 }
-  | _        -> { month = (next mo); year = yr }
+  | January   -> (inc_y 0)
+  | February  -> (inc_y 0)
+  | March     -> (inc_y 0)
+  | April     -> (inc_y 0)
+  | May       -> (inc_y 0)
+  | June      -> (inc_y 0)
+  | July      -> (inc_y 0)
+  | August    -> (inc_y 0)
+  | September -> (inc_y 0)
+  | October   -> (inc_y 0)
+  | November  -> (inc_y 0)
+  | December  -> (inc_y 1)
 
 let string_of_month = function
   | January   -> "January"

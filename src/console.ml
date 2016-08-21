@@ -1,12 +1,10 @@
-open Goods
-open Turn
 
 let rec get_string valid question =
   let s = read_line (print_string question) in 
   if valid s then s 
   else get_string valid question
 
-let valid_firm s = true (* TODO *)
+let valid_firm s = s; true (* TODO *)
 
 let valid_cog = function
   | "1" -> true

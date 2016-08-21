@@ -1,78 +1,41 @@
-#
-# Generic Makefile for OCaml projects.
-#
-# Sarah Mount
-# September 2009.
-#
-# Code should be structured roughly like this:
-#
-# project /
-#     Makefile
-#     README
-#     ChangeLog
-#     ...
-#     src/
-#         program.ml
-#         interface.mli
-#         ...
-#     tests/
-#         ...
-# 
-# Make sure to change the project / system specific 
-# values below.
+# OASIS_START
+# DO NOT EDIT (digest: a3c674b4239234cbbe53afe090018954)
 
-# Program to be built. No need to list dependent
-# modules in the same directory, or sub directories.
-PROGRAM=typan
+SETUP = ocaml setup.ml
 
-# OCaml build tool.
-BUILDER=ocamlbuild
+build: setup.data
+	$(SETUP) -build $(BUILDFLAGS)
 
-# OCaml libraries outside of the stdlib.
-LIBS=""
+doc: setup.data build
+	$(SETUP) -doc $(DOCFLAGS)
 
-# $(DOCFILE).odocl must exist in $(SRCDIR) and 
-# contain a list of module names (not file names) 
-# to be documented.
-DOCFILE=typan
+test: setup.data build
+	$(SETUP) -test $(TESTFLAGS)
 
-# Where everything is stored
-SRCDIR=src
-TESTDIR=test
-DOCDIR=docs
-BUILDDIR=_build
-#ocamlbuild default is `_build`
+all:
+	$(SETUP) -all $(ALLFLAGS)
 
-# Path separator for the current platform.
-# Uncomment the next line for Windows platforms.
-#/ := $(strip \)
-# Uncomment the next line for UNIX platforms.
-/=/
+install: setup.data
+	$(SETUP) -install $(INSTALLFLAGS)
 
-# Symbolic links created by this Makefile (DO NOT EDIT).
-SYMLINKS=bin/$(PROGRAM) bin/$(PROGRAM).byte $(DOCDIR)
+uninstall: setup.data
+	$(SETUP) -uninstall $(UNINSTALLFLAGS)
 
-.PHONY: all
-all: docs byte native
+reinstall: setup.data
+	$(SETUP) -reinstall $(REINSTALLFLAGS)
 
-.PHONY: docs
-docs:
-	$(BUILDER) $(SRCDIR)$/$(DOCFILE).docdir/index.html -I $(SRCDIR) -build-dir $(BUILDDIR)
-	ln -sf $(BUILDDIR)$/$(SRCDIR)$/$(PROGRAM).docdir $(DOCDIR)
+clean:
+	$(SETUP) -clean $(CLEANFLAGS)
 
-byte:
-	$(BUILDER).byte $(SRCDIR)$/$(PROGRAM).byte -libs $(LIBS) -build-dir $(BUILDDIR)
-	cd bin; ln -sf ../$(BUILDDIR)/$(SRCDIR)/$(PROGRAM).byte $(PROGRAM).byte 
+distclean:
+	$(SETUP) -distclean $(DISTCLEANFLAGS)
 
-native:
-	$(BUILDER).native $(SRCDIR)$/$(PROGRAM).native -libs $(LIBS) -build-dir $(BUILDDIR)
-	cd bin;	ln -sf ../$(BUILDDIR)$/$(SRCDIR)$/$(PROGRAM).native $(PROGRAM)
+setup.data:
+	$(SETUP) -configure $(CONFIGUREFLAGS)
 
-test.byte:
-	$(BUILDER).byte -Is $(SRCDIR),$(TESTDIR) tests.byte -lflags -I,/home/mike/.opam/system/lib/ounit -cflags -I,/home/mike/.opam/system/lib/ounit libs oUnit
+configure:
+	$(SETUP) -configure $(CONFIGUREFLAGS)
 
-.PHONY: clean
-clean: 
-	$(BUILDER) -clean -build-dir $(BUILDDIR)
-	rm -f $(SYMLINKS)
-	rm -f bin/*
+.PHONY: build doc test all install uninstall reinstall clean distclean configure
+
+# OASIS_STOP
