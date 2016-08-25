@@ -38,7 +38,8 @@ type t = {
 }
 *)
 
-type loop = (Turn.t -> Turn.t) list
+type phase = Turn.t -> Turn.t
+type loop = phase list
 
 exception Invalid_response Turn.t
 
@@ -121,3 +122,5 @@ let get_loop turn =
   match turn.location with 
   | hk -> hk_loop
   | _  -> other_loop
+
+

@@ -4,7 +4,7 @@ let rec get_string valid question =
   if valid s then s 
   else get_string valid question
 
-let valid_firm s = s; true (* TODO *)
+let valid_firm s = String.length s > 0
 
 let valid_cog = function
   | "1" -> true
@@ -14,7 +14,7 @@ let valid_cog = function
 let cash_or_guns_q = "Start with:\n\t1. Cash and a debt; or\n\t2. Five guns and no debt\n? "
 
 let setup () = 
-  let firm = get_string valid_firm "Enter firm name: " in
+  let firm = get_string (valid_firm) "Enter firm name: " in
   let cash_or_guns = get_string valid_cog cash_or_guns_q in
   Turn.init firm cash_or_guns
 
