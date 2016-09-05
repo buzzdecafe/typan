@@ -1,5 +1,4 @@
 (* warehouse module *)
-(*open Hold*)
 
 type t = {
   hold     : Hold.t;
